@@ -81,7 +81,7 @@ pub fn plan(
     }
     for p in protected_dirs {
         if destination.starts_with(p) {
-            return Err(CuratorError::Safety("the destination is inside Media Curator's own data folders".into()));
+            return Err(CuratorError::Safety("the destination is inside StoryLoom's own data folders".into()));
         }
     }
     let template = subfolder_template.map(str::trim).filter(|t| !t.is_empty());

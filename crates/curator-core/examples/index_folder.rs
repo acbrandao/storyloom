@@ -1,7 +1,7 @@
 //! Index a folder into a catalog from the command line (headless; useful for demos and CI).
 //!
 //! cargo run -p curator-core --example index_folder -- <base-dir> <media-folder>
-//! (<base-dir> is the same value you would pass as MEDIA_CURATOR_DATA_DIR)
+//! (<base-dir> is the same value you would pass as STORYLOOM_DATA_DIR)
 
 use curator_core::core::configuration::Configuration;
 use curator_core::core::events::NullSink;

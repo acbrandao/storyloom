@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Media Curator",
-  "version": "0.3.0",
-  "identifier": "app.mediacurator.desktop",
+  "productName": "StoryLoom",
+  "version": "0.3.1",
+  "identifier": "app.storyloom.desktop",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -13,7 +13,7 @@
     "windows": [
       {
         "label": "main",
-        "title": "Media Curator",
+        "title": "StoryLoom",
         "width": 1440,
         "height": 900,
         "minWidth": 960,

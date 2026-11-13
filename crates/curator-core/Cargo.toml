@@ -1,6 +1,6 @@
 [package]
 name = "curator-core"
-description = "UI-independent core of Media Curator: catalog, scanning, metadata, thumbnails, timestamp-safe file operations."
+description = "UI-independent core of StoryLoom: catalog, scanning, metadata, thumbnails, timestamp-safe file operations."
 version.workspace = true
 edition.workspace = true
 license.workspace = true

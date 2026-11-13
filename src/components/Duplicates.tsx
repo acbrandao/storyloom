@@ -27,7 +27,7 @@ export function DuplicatesView() {
   return (
     <div className="page">
       <p className="subtle" style={{ marginTop: 0 }}>
-        {groups.length.toLocaleString()} groups of byte-identical files · {formatBytes(wasted)} in extra copies. Media Curator never deletes files — mark the copies you don’t want as Rejected, or remove them yourself in Finder.
+        {groups.length.toLocaleString()} groups of byte-identical files · {formatBytes(wasted)} in extra copies. StoryLoom never deletes files — mark the copies you don’t want as Rejected, or remove them yourself in Finder.
       </p>
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {groups.map((g) => (

@@ -4,7 +4,7 @@
 
 Click **Add Media** (or drag a folder onto the window).
 
-- **Add a folder** (recommended): catalogs files where they are. Media Curator only reads them. Nothing is moved, renamed or modified.
+- **Add a folder** (recommended): catalogs files where they are. StoryLoom only reads them. Nothing is moved, renamed or modified.
 - **Import into my library**: copies from a card, phone or folder into a library folder, organized by date taken or by the original folder structure. You see every destination before anything is copied. Each copy is verified and keeps its original dates. Files already in the library (identical content) are skipped.
 
 Indexing runs in the background (see the bottom of the sidebar). You can browse, rate and tag while it runs, and cancel at any time. Problems such as unsupported, empty or unreadable files are listed under **Activity & History**.
@@ -41,7 +41,7 @@ Ratings, keep/reject, review, favorites and labels are independent: a 5-star pho
 
 ## 4. Rename and organize files on disk
 
-Everything in sections 1–3 only changes Media Curator's catalog. The following actions change files, so each one shows a full preview first, asks for confirmation, is recorded in **Activity & History**, and can be **undone**.
+Everything in sections 1–3 only changes StoryLoom's catalog. The following actions change files, so each one shows a full preview first, asks for confirmation, is recorded in **Activity & History**, and can be **undone**.
 
 - **Rename** (F2, right-click → *Rename File(s)…*, or the details panel): build names from a template. Click the field buttons to insert `{capture_date}`, `{capture_time}`, `{location}`, `{description}`, `{camera}`, `{original_name}`, `{sequence}` and others. Numbers follow the order the photos were taken. Names that are already taken are either left alone or get a number added, as you choose. Existing files are never replaced. The original filename is always kept in the catalog and shown in the details panel.
 - **Copy or Move to Folder…**: choose a destination and optional subfolders (by year, by day, by place, by type, or your own template).

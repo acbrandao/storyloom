@@ -82,7 +82,7 @@ impl Application {
         let path = path.canonicalize()?;
         let cache = self.inner.cfg.cache_dir.canonicalize().unwrap_or_else(|_| self.inner.cfg.cache_dir.clone());
         if cache.starts_with(&path) {
-            return Err(CuratorError::invalid("this folder contains Media Curator's own cache; choose a different folder"));
+            return Err(CuratorError::invalid("this folder contains StoryLoom's own cache; choose a different folder"));
         }
         let id = {
             let c = self.conn()?;

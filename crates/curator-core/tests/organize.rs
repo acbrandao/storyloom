@@ -33,7 +33,7 @@ struct Fixture {
 
 fn fixture() -> Fixture {
     let tmp = tempfile::tempdir().unwrap();
-    std::env::set_var("MEDIA_CURATOR_TRASH_DIR", std::env::temp_dir().join(format!("mc-test-trash-{}", std::process::id())));
+    std::env::set_var("STORYLOOM_TRASH_DIR", std::env::temp_dir().join(format!("mc-test-trash-{}", std::process::id())));
     let root = tmp.path().canonicalize().unwrap().join("media");
     photo(&root.join("GOPR0001.JPG"), "2026:07:14 15:32:45", 1);
     photo(&root.join("GOPR0002.JPG"), "2026:07:14 15:33:57", 2);

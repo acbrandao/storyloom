@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1 — 2026-11-12
+
+- The app is now called **StoryLoom** everywhere (window, menu bar, Dock, Launchpad, docs). The bundle identifier is now `app.storyloom.desktop`; an existing catalog from the old identifier is moved over automatically on first launch.
+- Video dates are read correctly from files written by FFmpeg 9, which stores `creation_time` twice.
+- Environment variables are renamed from `MEDIA_CURATOR_*` to `STORYLOOM_*`.
+
 ## 0.3.0 — 2026-11-12
 
 First public release. Apple Silicon macOS build.

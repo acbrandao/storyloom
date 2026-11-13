@@ -18,7 +18,7 @@ pub struct Tools {
 const SEARCH_DIRS: &[&str] = &["/opt/homebrew/bin", "/usr/local/bin", "/opt/local/bin", "/usr/bin", "/bin"];
 
 fn find(name: &str, extra_dirs: &[PathBuf]) -> Option<PathBuf> {
-    let env_key = format!("MEDIA_CURATOR_{}", name.to_ascii_uppercase());
+    let env_key = format!("STORYLOOM_{}", name.to_ascii_uppercase());
     if let Ok(p) = std::env::var(&env_key) {
         let p = PathBuf::from(p);
         if p.is_file() {

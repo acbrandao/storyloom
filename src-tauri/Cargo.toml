@@ -1,12 +1,12 @@
 [package]
-name = "media-curator"
-description = "Media Curator desktop application"
+name = "storyloom"
+description = "StoryLoom desktop application"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 
 [lib]
-name = "media_curator_lib"
+name = "storyloom_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]

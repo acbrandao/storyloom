@@ -298,7 +298,7 @@ function DateDialog({ d, onClose }: { d: MediaDetail; onClose: () => void }) {
         <button className="btn primary" onClick={() => save()}>Save correction</button>
       </>
     }>
-      <p style={{ margin: 0 }}>The correction is stored in Media Curator’s catalog only. The original value from the file is kept and the file is not modified.</p>
+      <p style={{ margin: 0 }}>The correction is stored in StoryLoom’s catalog only. The original value from the file is kept and the file is not modified.</p>
       <div className="kv"><dt>From the file</dt><dd>{d.captureDatetime ? formatLocal(d.captureDatetime, true) : "No capture date recorded"}</dd></div>
       <label className="field"><span>Date & time (as shown on the camera)</span>
         <input className="input" type="datetime-local" step={1} value={local} onChange={(e) => setLocal(e.target.value)} onKeyDown={(e) => e.stopPropagation()} />

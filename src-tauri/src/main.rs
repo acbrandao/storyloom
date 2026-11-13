@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    media_curator_lib::run()
+    storyloom_lib::run()
 }

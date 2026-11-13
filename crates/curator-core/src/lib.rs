@@ -1,6 +1,6 @@
 //! # curator-core
 //!
-//! The UI-independent heart of Media Curator. Everything that touches source media,
+//! The UI-independent heart of StoryLoom. Everything that touches source media,
 //! the catalog database, or the filesystem lives here, so the desktop shell (Tauri)
 //! is only a thin command/event adapter and the logic is testable without a GUI.
 //!

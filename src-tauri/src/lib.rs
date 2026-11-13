@@ -1,4 +1,4 @@
-//! Media Curator desktop shell: wires the UI-independent `curator-core` to Tauri.
+//! StoryLoom desktop shell: wires the UI-independent `curator-core` to Tauri.
 //! All media and filesystem work happens in the core; this crate only exposes commands,
 //! forwards events and serves thumbnails/media to the webview through custom protocols.
 
@@ -24,7 +24,7 @@ pub struct AppState(pub Application);
 fn init_logging(dir: &std::path::Path) -> Option<tracing_appender::non_blocking::WorkerGuard> {
     use tracing_subscriber::{fmt, prelude::*, EnvFilter};
     std::fs::create_dir_all(dir).ok()?;
-    let file = tracing_appender::rolling::daily(dir, "media-curator.log");
+    let file = tracing_appender::rolling::daily(dir, "storyloom.log");
     let (writer, guard) = tracing_appender::non_blocking(file);
     let filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info,curator_core=info"));
     tracing_subscriber::registry()
@@ -36,6 +36,21 @@ fn init_logging(dir: &std::path::Path) -> Option<tracing_appender::non_blocking:
     Some(guard)
 }
 
+/// The app was called "Media Curator" (identifier `app.mediacurator.desktop`) before 0.3.1.
+/// Move its catalog, cache and logs to the StoryLoom locations once, if the new ones don't exist yet.
+fn migrate_from_old_identifier(new_dirs: &[&std::path::Path]) {
+    for new in new_dirs {
+        let Some(name) = new.file_name().and_then(|n| n.to_str()) else { continue };
+        let old = new.with_file_name(name.replace("app.storyloom.desktop", "app.mediacurator.desktop"));
+        if old != **new && old.exists() && !new.exists() {
+            match std::fs::rename(&old, new) {
+                Ok(()) => eprintln!("moved {} -> {}", old.display(), new.display()),
+                Err(e) => eprintln!("could not move {}: {e}", old.display()),
+            }
+        }
+    }
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -44,19 +59,23 @@ pub fn run() {
         .register_asynchronous_uri_scheme_protocol("media", protocols::media)
         .setup(|app| {
             let paths = app.path();
-            // MEDIA_CURATOR_DATA_DIR keeps a separate catalog/cache (development, testing, demos).
-            let (data_dir, cache_dir, log_dir) = match std::env::var_os("MEDIA_CURATOR_DATA_DIR") {
+            // STORYLOOM_DATA_DIR keeps a separate catalog/cache (development, testing, demos).
+            let (data_dir, cache_dir, log_dir) = match std::env::var_os("STORYLOOM_DATA_DIR") {
                 Some(base) => {
                     let base = std::path::PathBuf::from(base);
                     (base.join("data"), base.join("cache"), base.join("logs"))
                 }
-                None => (paths.app_data_dir()?, paths.app_cache_dir()?, paths.app_log_dir()?),
+                None => {
+                    let dirs = (paths.app_data_dir()?, paths.app_cache_dir()?, paths.app_log_dir()?);
+                    migrate_from_old_identifier(&[&dirs.0, &dirs.1, &dirs.2]);
+                    dirs
+                }
             };
             if let Some(guard) = init_logging(&log_dir) {
                 // Keep the log writer alive for the lifetime of the app.
                 app.manage(guard);
             }
-            tracing::info!(data = %data_dir.display(), cache = %cache_dir.display(), "starting Media Curator");
+            tracing::info!(data = %data_dir.display(), cache = %cache_dir.display(), "starting StoryLoom");
             let cfg = Configuration::new(&data_dir, &cache_dir);
             // Tools may be bundled next to the executable in the future (Resources/bin).
             let mut extra = vec![];
@@ -83,5 +102,5 @@ pub fn run() {
         })
         .invoke_handler(commands::handler())
         .run(tauri::generate_context!())
-        .expect("error while running Media Curator");
+        .expect("error while running StoryLoom");
 }

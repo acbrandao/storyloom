@@ -123,7 +123,7 @@ pub fn plan(conn: &Connection, tools: &Tools, req: &ExportRequest, protected_dir
         return Err(CuratorError::invalid("choose a folder for the clips"));
     }
     if protected_dirs.iter().any(|p| dest.starts_with(p)) {
-        return Err(CuratorError::Safety("the destination is inside Media Curator's own data folders".into()));
+        return Err(CuratorError::Safety("the destination is inside StoryLoom's own data folders".into()));
     }
     renaming::validate_template(&req.name_template)?;
     let mut segs = req.segment_ids.iter().map(|id| segments::get(conn, *id)).collect::<Result<Vec<_>>>()?;
@@ -286,7 +286,7 @@ pub fn execute(db: &Database, tools: &Tools, plan: &ExportPlan, batch_id: &str, 
             let tmp = dest.with_file_name(format!(".{}.mcpartial-{}", label, crate::database::now_ms()));
             let tmp = tmp.with_extension(dest.extension().unwrap_or_default());
             let duration = item.actual_out - item.actual_in;
-            let comment = format!("Clip of {} ({} – {}), made with Media Curator", item.source_filename, fmt_tc(item.in_point), fmt_tc(item.out_point));
+            let comment = format!("Clip of {} ({} – {}), made with StoryLoom", item.source_filename, fmt_tc(item.in_point), fmt_tc(item.out_point));
             let meta = clip_metadata(item.capture_local.as_deref(), item.capture_offset.as_deref(), comment);
             let cmd = trimming::build_command(&ffmpeg, src, &tmp, plan.request.preset, &info, item.actual_in, duration, &meta);
             let run = trimming::run(cmd, duration, cancel, |f| progress((done_seconds + f * duration) / total, &label));

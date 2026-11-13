@@ -49,7 +49,7 @@ export function Sidebar({ stats, sources, collections, tags, onImport }: {
   return (
     <aside className="sidebar">
       <div className="sidebar-top drag" data-tauri-drag-region>
-        <span className="brand" data-tauri-drag-region>MEDIA CURATOR</span>
+        <span className="brand" data-tauri-drag-region>STORYLOOM</span>
       </div>
       <div className="sidebar-scroll">
         <NavItem view={{ kind: "dashboard" }} icon={<LayoutDashboard size={16} />} label="Dashboard" />
@@ -142,7 +142,7 @@ function FoldersSection({ sources, onImport }: { sources: Source[]; onImport: ()
         onClick: async () => {
           const ok = await confirmDialog({
             title: `Remove “${s.name}” from the catalog?`,
-            message: <>Ratings, tags and collection membership for its {s.mediaCount.toLocaleString()} items will be removed from Media Curator. <b>No files will be deleted or changed on disk.</b></>,
+            message: <>Ratings, tags and collection membership for its {s.mediaCount.toLocaleString()} items will be removed from StoryLoom. <b>No files will be deleted or changed on disk.</b></>,
             okLabel: "Remove from Catalog", danger: true,
           });
           if (!ok) return;

@@ -315,10 +315,10 @@ pub fn ensure_source(conn: &Connection, root: &Path) -> Result<i64> {
     }
 }
 
-/// Move a file to the system Trash (recoverable). `MEDIA_CURATOR_TRASH_DIR` redirects this to
+/// Move a file to the system Trash (recoverable). `STORYLOOM_TRASH_DIR` redirects this to
 /// a folder, which the automated tests use so they never touch the user's real Trash.
 pub fn move_to_trash(path: &Path) -> Result<()> {
-    if let Some(dir) = std::env::var_os("MEDIA_CURATOR_TRASH_DIR") {
+    if let Some(dir) = std::env::var_os("STORYLOOM_TRASH_DIR") {
         let dir = PathBuf::from(dir);
         std::fs::create_dir_all(&dir)?;
         let target = crate::filesystem::operations::unique_destination(&dir, &path.file_name().unwrap_or_default().to_string_lossy());

@@ -62,7 +62,7 @@ export function SettingsView() {
             {tool("ExifTool", info?.tools.exiftool, info?.tools.exiftoolVersion, "Optional: richer photo metadata (Canon CR3, maker notes, IPTC)", "brew install exiftool")}
           </tbody>
         </table>
-        <p className="subtle" style={{ marginBottom: 0 }}>Without ExifTool, photo details are read by Media Curator’s built-in reader (JPEG, HEIC, TIFF and most RAW formats). After installing a tool, restart the app and use “Re-read all file details”.</p>
+        <p className="subtle" style={{ marginBottom: 0 }}>Without ExifTool, photo details are read by StoryLoom’s built-in reader (JPEG, HEIC, TIFF and most RAW formats). After installing a tool, restart the app and use “Re-read all file details”.</p>
         <div className="row" style={{ marginTop: 10 }}>
           <button className="btn small" onClick={async () => {
             const ids = await api.mediaIds({}, "captureDate", true);

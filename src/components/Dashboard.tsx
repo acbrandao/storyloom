@@ -44,8 +44,8 @@ export function Dashboard({ stats, sources, onImport }: { stats: LibraryStats | 
     return (
       <div className="empty-state">
         <Library size={56} />
-        <h2>Welcome to Media Curator</h2>
-        <p>Add a folder of photos, videos or music to get started. Media Curator only reads your files while indexing — nothing is moved, renamed or changed.</p>
+        <h2>Welcome to StoryLoom</h2>
+        <p>Add a folder of photos, videos or music to get started. StoryLoom only reads your files while indexing — nothing is moved, renamed or changed.</p>
         <button className="btn primary" onClick={onImport}><FolderPlus size={15} />Add a Folder…</button>
         <p className="subtle">Tip: you can also drag a folder from Finder onto this window.</p>
       </div>

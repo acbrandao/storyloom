@@ -1,4 +1,4 @@
-# Media Curator
+# StoryLoom
 
 A local, offline desktop app for turning large piles of raw photos, videos and audio into organized, rated, searchable collections. These collections become the raw material for highlight videos, slideshows, blogs and social posts.
 
@@ -8,11 +8,11 @@ Rust core + Tauri 2 shell + React/TypeScript UI, with SQLite (WAL) as the catalo
 
 Get the latest `.dmg` from the [Releases](../../releases) page (macOS 12+ on Apple Silicon).
 
-1. Open the `.dmg` and drag **Media Curator** to Applications.
+1. Open the `.dmg` and drag **StoryLoom** to Applications.
 2. Install FFmpeg, which the app uses for video and audio: `brew install ffmpeg`. ExifTool (`brew install exiftool`) is optional.
 3. The app is not yet signed with an Apple Developer ID, so the first time macOS will say it can't verify the developer. Either right-click the app → **Open** → **Open**, or run:
    ```bash
-   xattr -dr com.apple.quarantine "/Applications/Media Curator.app"
+   xattr -dr com.apple.quarantine "/Applications/StoryLoom.app"
    ```
 
 ## Status
@@ -65,7 +65,7 @@ Phases 4–5 (story projects, storyboards, exports and manifests) are planned; s
 | FFmpeg (ffmpeg + ffprobe) | video/audio details and thumbnails | `brew install ffmpeg` |
 | ExifTool *(optional)* | richer photo metadata (CR3, maker notes, IPTC) | `brew install exiftool` |
 
-The app finds tools in Homebrew/MacPorts locations even when launched from Finder. Override with `MEDIA_CURATOR_FFMPEG`, `MEDIA_CURATOR_FFPROBE` or `MEDIA_CURATOR_EXIFTOOL`.
+The app finds tools in Homebrew/MacPorts locations even when launched from Finder. Override with `STORYLOOM_FFMPEG`, `STORYLOOM_FFPROBE` or `STORYLOOM_EXIFTOOL`.
 
 ## Build and run
 
@@ -78,7 +78,7 @@ npm run tauri build                  # release .app and .dmg in target/release/b
 Use a separate, throwaway catalog for development or demos:
 
 ```bash
-MEDIA_CURATOR_DATA_DIR=/tmp/mc-dev npm run tauri dev
+STORYLOOM_DATA_DIR=/tmp/mc-dev npm run tauri dev
 ```
 
 ## Sample library
@@ -95,7 +95,7 @@ Then open the app, click **Add Media → Add a folder** and choose that folder. 
 ```bash
 cargo test -p curator-core                                         # unit + integration (pipeline, timestamps, organize, clips)
 cargo test -p curator-core --release --test scale -- --ignored --nocapture   # 10,000-file acceptance test
-cargo test -p media-curator                                        # protocol (HTTP Range) tests
+cargo test -p storyloom                                        # protocol (HTTP Range) tests
 npm run typecheck
 ```
 
@@ -109,8 +109,8 @@ Releases are built locally on a Mac and uploaded with the GitHub CLI:
 npm run tauri build -- --target aarch64-apple-darwin
 # The .app is in target/aarch64-apple-darwin/release/bundle/macos/. If the DMG step fails
 # (it scripts Finder), make the DMG directly:
-#   hdiutil create -volname "Media Curator" -srcfolder <folder with the .app + Applications link> -format UDZO Media-Curator_X.Y.Z_aarch64.dmg
-gh release create vX.Y.Z Media-Curator_X.Y.Z_aarch64.dmg --title "Media Curator X.Y.Z" --notes-file notes.md
+#   hdiutil create -volname "StoryLoom" -srcfolder <folder with the .app + Applications link> -format UDZO StoryLoom_X.Y.Z_aarch64.dmg
+gh release create vX.Y.Z StoryLoom_X.Y.Z_aarch64.dmg --title "StoryLoom X.Y.Z" --notes-file notes.md
 ```
 
 ## Documentation

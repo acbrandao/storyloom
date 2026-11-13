@@ -1,6 +1,6 @@
 # Timestamp preservation
 
-Media Curator tracks two families of time and never mixes them up.
+StoryLoom tracks two families of time and never mixes them up.
 
 | Kind | Where it lives | Example |
 |---|---|---|

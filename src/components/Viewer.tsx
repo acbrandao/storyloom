@@ -102,7 +102,7 @@ export function Viewer() {
           ) : (
             <div className="unsupported">
               <img src={thumbUrl(d.id, d.thumbnailStatus)} style={{ maxWidth: 480, borderRadius: 8 }} alt="" />
-              <div>.{ext.toUpperCase()} videos can’t be played inside Media Curator yet.</div>
+              <div>.{ext.toUpperCase()} videos can’t be played inside StoryLoom yet.</div>
               <button className="btn" onClick={() => api.openExternal(d.id)}><ExternalLink size={14} />Open in default player</button>
             </div>
           )
