@@ -426,10 +426,13 @@ pub fn parse_ffprobe(v: &Value, media_type: MediaType) -> ExtractedMetadata {
     }
 
     // Capture time
-    if let Some(c) = tag(ftags, "com.apple.quicktime.creationdate").and_then(parse_offset_datetime) {
+    // FFprobe joins repeated tags with ';' (FFmpeg 9 writes creation_time both in the movie header
+    // and as a metadata key), so every value is tried in turn.
+    let each = |v: &str| v.split(';').map(str::trim).filter(|x| !x.is_empty()).map(str::to_string).collect::<Vec<_>>();
+    if let Some(c) = tag(ftags, "com.apple.quicktime.creationdate").and_then(|v| each(v).iter().find_map(|x| parse_offset_datetime(x))) {
         m.capture = Some(c);
     } else if let Some(ct) = tag(ftags, "creation_time").or_else(|| video.or(audio).and_then(|s| tag(s.get("tags"), "creation_time"))) {
-        m.capture = parse_container_time(ct, is_gopro);
+        m.capture = each(ct).iter().find_map(|x| parse_container_time(x, is_gopro));
     }
 
     // Descriptive tags
@@ -558,6 +561,19 @@ mod tests {
         assert_eq!(c.source, CaptureSource::ContainerLocal);
         assert_eq!(m.camera_make.as_deref(), Some("GoPro"));
         assert!((m.frame_rate.unwrap() - 59.94).abs() < 0.01);
+    }
+
+    #[test]
+    fn repeated_creation_time_values_from_ffmpeg9() {
+        // FFprobe 9 reports duplicated tags joined with ';'.
+        let v = json!({"format": {"tags": {"creation_time": "2026-07-14T15:32:45.000000Z;2026-07-14T15:32:45.000000Z", "firmware": "H23.01.01.10.00"}}, "streams": []});
+        let c = parse_ffprobe(&v, MediaType::Video).capture.unwrap();
+        assert_eq!(c.local, "2026-07-14T15:32:45");
+        assert_eq!(c.source, CaptureSource::ContainerLocal);
+        let v = json!({"format": {"tags": {"creation_time": "garbage;2026-07-14T19:32:45Z"}}, "streams": []});
+        assert!(parse_ffprobe(&v, MediaType::Video).capture.is_some(), "first valid value wins");
+        let v = json!({"format": {"tags": {"com.apple.quicktime.creationdate": "2026-07-14T15:32:45-0400;2026-07-14T15:32:45-0400"}}, "streams": []});
+        assert_eq!(parse_ffprobe(&v, MediaType::Video).capture.unwrap().offset.as_deref(), Some("-04:00"));
     }
 
     #[test]
