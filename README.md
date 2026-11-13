@@ -103,12 +103,15 @@ Reference results on an Apple Silicon Mac: 10,000 photos indexed (metadata + thu
 
 ## Releasing
 
-```bash
-npm run tauri build -- --target aarch64-apple-darwin   # local build → target/aarch64-apple-darwin/release/bundle/{macos,dmg}
-git tag v0.3.1 && git push origin v0.3.1                 # CI builds and attaches the app to a draft GitHub release
-```
+Releases are built locally on a Mac and uploaded with the GitHub CLI:
 
-Signing and notarization are set up in `.github/workflows/release.yml` and activate once Apple Developer secrets are added.
+```bash
+npm run tauri build -- --target aarch64-apple-darwin
+# The .app is in target/aarch64-apple-darwin/release/bundle/macos/. If the DMG step fails
+# (it scripts Finder), make the DMG directly:
+#   hdiutil create -volname "Media Curator" -srcfolder <folder with the .app + Applications link> -format UDZO Media-Curator_X.Y.Z_aarch64.dmg
+gh release create vX.Y.Z Media-Curator_X.Y.Z_aarch64.dmg --title "Media Curator X.Y.Z" --notes-file notes.md
+```
 
 ## Documentation
 
