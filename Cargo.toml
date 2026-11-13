@@ -1,0 +1,16 @@
+[workspace]
+resolver = "2"
+members = ["crates/curator-core", "src-tauri"]
+
+[workspace.package]
+version = "0.3.0"
+edition = "2021"
+license = "MIT"
+
+[profile.dev.package."*"]
+# Media decoding is painfully slow unoptimized; optimize dependencies even in dev.
+opt-level = 3
+
+[profile.release]
+lto = "thin"
+codegen-units = 4

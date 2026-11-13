@@ -1,0 +1,36 @@
+name: Release
+
+# Push a tag like v0.3.1 to build the macOS app and attach it to a draft GitHub release.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # To sign and notarize, add these repository secrets (Apple Developer account required):
+          # APPLE_CERTIFICATE, APPLE_CERTIFICATE_PASSWORD, APPLE_SIGNING_IDENTITY, APPLE_ID, APPLE_PASSWORD, APPLE_TEAM_ID
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: Media Curator ${{ github.ref_name }}
+          releaseBody: See CHANGELOG.md for what's new. Requires macOS 12+ on Apple Silicon and FFmpeg (`brew install ffmpeg`).
+          releaseDraft: true
+          args: --target aarch64-apple-darwin

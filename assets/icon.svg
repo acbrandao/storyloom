@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1f2330"/>
+      <stop offset="1" stop-color="#0d0f14"/>
+    </linearGradient>
+    <linearGradient id="a" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb347"/>
+      <stop offset="1" stop-color="#ff6a3d"/>
+    </linearGradient>
+    <linearGradient id="b" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5ec8ff"/>
+      <stop offset="1" stop-color="#3a7bff"/>
+    </linearGradient>
+  </defs>
+  <rect x="64" y="64" width="896" height="896" rx="200" fill="url(#bg)"/>
+  <g transform="translate(512 520) rotate(-10)">
+    <rect x="-300" y="-220" width="440" height="330" rx="36" fill="url(#b)" opacity="0.9"/>
+  </g>
+  <g transform="translate(512 520) rotate(6)">
+    <rect x="-170" y="-150" width="460" height="345" rx="36" fill="#f4f1ea"/>
+    <rect x="-145" y="-125" width="410" height="250" rx="18" fill="url(#a)"/>
+    <path d="M-145 90 L-20 -20 L60 50 L140 -40 L265 90 L265 125 L-145 125 Z" fill="#20242f" opacity="0.85"/>
+    <circle cx="190" cy="-60" r="34" fill="#fff6d8"/>
+  </g>
+  <g transform="translate(300 740)">
+    <path d="M0 -60 L17 -18 L62 -18 L26 9 L39 52 L0 26 L-39 52 L-26 9 L-62 -18 L-17 -18 Z" fill="#ffd166"/>
+  </g>
+</svg>
